@@ -1,4 +1,21 @@
-This is an E-commerce website created by Chris Yee Shen Koay, Louis Luchen Zhou, Yao Xian Phang and James Wu (Sen Wu).
+This is an E-commerce website created by Chris Yee Shen Koay, Luchen Zhou, Yao Xian Phang and James Wu. Tech Stack: Next.js, Tailwind CSS, Python FastAPI, MongoDB.
+
+Contribution:
+Chris Yee Shen Koay
+-
+-
+
+Luchen Zhou
+-
+-
+
+Yao Xian Phang
+-
+-
+
+James Wu
+-
+-
 
 ## Getting Started
 
@@ -27,6 +44,8 @@ Next, to run the backend development server, cd to backend folder and run:
 Install lastest python from https://www.python.org/downloads/
 
 Install dependencies
+
+Paste .env file into backend folder
 
 ```bash
 pip3 install fastapi uvicorn pydantic "pymongo[srv]"
