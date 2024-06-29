@@ -24,8 +24,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 Next, to run the backend development server, cd to backend folder and run:
 
-## Getting Started
-
 Install lastest python from https://www.python.org/downloads/
 
 Install dependencies
@@ -35,7 +33,6 @@ pip3 install fastapi uvicorn pydantic
 ```
 
 Run project
-Run command
 
 ```bash
 python3 main.py
