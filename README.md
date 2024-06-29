@@ -2,7 +2,13 @@ This is an E-commerce website created by Chris Yee Shen Koay, Louis Luchen Zhou,
 
 ## Getting Started
 
-First, run the development server:
+First, cd to frontend folder and run the frontend server:
+
+install dependencies
+
+```bash
+npm i
+```
 
 ```bash
 npm run dev
@@ -16,21 +22,24 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Next, to run the backend development server, cd to backend folder and run:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Getting Started
 
-## Learn More
+Install lastest python from https://www.python.org/downloads/
 
-To learn more about Next.js, take a look at the following resources:
+Install dependencies
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+pip3 install fastapi uvicorn pydantic
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Run project
+Run command
 
-## Deploy on Vercel
+```bash
+python3 main.py
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Check API endpoints
+Open [http://localhost:8000/docs](http://localhost:8000/docs) with your browser to see the api endpoints and test it
