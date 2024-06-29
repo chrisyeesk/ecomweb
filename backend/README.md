@@ -7,14 +7,15 @@ Install lastest python from https://www.python.org/downloads/
 Install dependencies
 
 ```bash
-pip3 install fastapi uvicorn pydantic
+pip3 install fastapi uvicorn pydantic "pymongo[srv]"
 ```
 
 Run project
 Run command
 
 ```bash
-python3 main.py
+python3 -m uvicorn main:app --reload
+
 ```
 
 Check API endpoints
