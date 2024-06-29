@@ -39,6 +39,11 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+To run email templates, run
+```bash
+npx react-email dev
+```
+
 Next, to run the backend development server, cd to backend folder and run:
 
 Install lastest python from https://www.python.org/downloads/
