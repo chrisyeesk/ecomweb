@@ -44,23 +44,12 @@ To run email templates, run
 npx react-email dev
 ```
 
-Next, to run the backend development server, cd to backend folder and run:
+Next, to run the backend development server, cd to backend folder:
 
-Install lastest python from https://www.python.org/downloads/
-
-Install dependencies
-
-Paste .env file into backend folder
+Paste .env file into backend folder then run
 
 ```bash
-pip3 install fastapi uvicorn pydantic "pymongo[srv]"
+npm i
+npm run build
+node dist/index.cjs
 ```
-
-Run project
-
-```bash
-python3 -m uvicorn main:app --reload
-```
-
-Check API endpoints
-Open [http://localhost:8000/docs](http://localhost:8000/docs) with your browser to see the api endpoints and test it
