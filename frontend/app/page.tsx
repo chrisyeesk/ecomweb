@@ -2,9 +2,7 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import Footer from './(customer)/components/footer';
 import ShopNowButton from './(customer)/components/shop-now-button';
-export function TextareaDemo() {
-  return;
-}
+
 export default function Home() {
   return (
     <>
