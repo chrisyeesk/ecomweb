@@ -13,10 +13,115 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum OrderStatus {
+  unfulfilled
+  fulfilled
+  cancelled
+}
+
+enum TrxStatus {
+  pending
+  completed
+  failed
+}
+
+enum DeliveryStatus {
+  preparing
+  shipped
+  delivered
+}
+
 model User {
-  id      Int     @id @default(autoincrement())
-  name    String
-  email   String
-  mobile  String
-  address String
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
+  password  String
+  firstName String
+  lastName  String
+  createdAt DateTime  @default(now())
+  addresses Address[]
+  orders    Order[]
+
+  @@index([email])
+}
+
+model Address {
+  id       Int    @id @default(autoincrement())
+  user     User   @relation(fields: [userId], references: [id])
+  userId   Int
+  street   String
+  suburb   String
+  postcode Int
+  country  String
+
+  @@index([userId])
+}
+
+model Category {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String
+  products    Product[]
+
+  @@index([name])
+}
+
+model Product {
+  id            Int           @id @default(autoincrement())
+  category      Category      @relation(fields: [categoryId], references: [id])
+  categoryId    Int
+  name          String
+  price         Decimal
+  description   String
+  stockQuantity Int
+  imageUrl      String[]
+  brand         String
+  color         String[]
+  orderDetails  OrderDetail[]
+
+  @@index([categoryId])
+}
+
+model Order {
+  id           Int           @id @default(autoincrement())
+  user         User          @relation(fields: [userId], references: [id])
+  userId       Int
+  orderDate    DateTime      @default(now())
+  status       OrderStatus
+  transactions Transaction[]
+  deliveries   Delivery[]
+  orderDetails OrderDetail[]
+
+  @@index([userId])
+}
+
+model Transaction {
+  id            Int       @id @default(autoincrement())
+  order         Order     @relation(fields: [orderId], references: [id])
+  orderId       Int
+  amount        Decimal
+  paymentMethod String
+  trxDate       DateTime  @default(now())
+  status        TrxStatus
+
+  @@index([orderId])
+}
+
+model Delivery {
+  id           Int            @id @default(autoincrement())
+  order        Order          @relation(fields: [orderId], references: [id])
+  orderId      Int
+  deliveryDate DateTime
+  status       DeliveryStatus
+
+  @@index([orderId])
+}
+
+model OrderDetail {
+  order     Order   @relation(fields: [orderId], references: [id])
+  orderId   Int
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+  quantity  Int
+
+  @@id([orderId, productId])
 }
