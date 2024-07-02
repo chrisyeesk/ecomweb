@@ -18,6 +18,7 @@ app.use((req, res, next) => {
 
 // Admin signup
 app.post('/admin/signup', async (req, res) => {
+  console.log("Route /admin/signup called");
   const { username, password } = req.body;
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -26,12 +27,14 @@ app.post('/admin/signup', async (req, res) => {
     });
     res.status(201).json(admin);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 });
 
 // Admin signin
 app.post('/admin/signin', async (req, res) => {
+  console.log("Route /admin/signin called");
   const { username, password } = req.body;
   try {
     const admin = await prisma.admin.findUnique({ where: { username } });
@@ -45,6 +48,7 @@ app.post('/admin/signin', async (req, res) => {
     const token = jwt.sign({ adminId: admin.id }, SECRET_KEY, { expiresIn: '1h' });
     res.status(200).json({ token });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 });
@@ -67,11 +71,13 @@ const authenticate = (req, res, next) => {
 
 // Protected route example
 app.get('/admin/me', authenticate, (req, res) => {
+  console.log("Route /admin/me called");
   res.status(200).json({ message: 'You are authenticated', adminId: req.adminId });
 });
 
 
 app.get('/test', async (req, res) => {
+  console.log("Route /test called");
   try {
     res.status(200).json({ message: 'API working!' });
   } catch (error) {
@@ -81,6 +87,7 @@ app.get('/test', async (req, res) => {
 
 //get all users
 app.get('/users', async (req, res) => {
+  console.log("Route /users called");
   try {
     const users = await prisma.user.findMany();
     res.status(200).json(users);
@@ -91,6 +98,7 @@ app.get('/users', async (req, res) => {
 
 //get user by id
 app.get('/users/:id', async (req, res) => {
+  console.log("Route /users/:id called");
   try {
     const user = await prisma.user.findUnique({
       where: {

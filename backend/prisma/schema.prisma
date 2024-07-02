@@ -31,6 +31,12 @@ enum DeliveryStatus {
   delivered
 }
 
+model Admin {
+  id       Int    @id @default(autoincrement())
+  username String @unique
+  password String
+}
+
 model User {
   id        Int       @id @default(autoincrement())
   email     String    @unique
@@ -125,3 +131,4 @@ model OrderDetail {
 
   @@id([orderId, productId])
 }
+
