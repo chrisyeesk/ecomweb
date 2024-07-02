@@ -78,6 +78,16 @@ app.put('/users/:id', async (req, res) => {
   }
 });
 
+//get all products
+app.get('/products', async (req, res) => {
+  try {
+    const products = await prisma.Product.findMany();
+    res.status(200).json({ message: products });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 //start server
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
