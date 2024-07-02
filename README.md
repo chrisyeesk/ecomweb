@@ -2,8 +2,8 @@ This is an E-commerce website created by Chris Yee Shen Koay, Luchen Zhou, Yao X
 
 Contribution:
 Chris Yee Shen Koay
--
--
+- Main page
+- Set up backend and PostgreSQL dockerfile
 
 Luchen Zhou
 -
@@ -19,37 +19,23 @@ James Wu
 
 ## Getting Started
 
-First, cd to frontend folder and run the frontend server:
-
-install dependencies
+1. Build and start docker containers
 
 ```bash
-npm i
+docker compose build
 ```
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+docker compose up
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Initiate database
+
+```bash
+docker exec -it backend npx prisma migrate dev --name init
+```
 
 To run email templates, run
 ```bash
 npx react-email dev
-```
-
-Next, to run the backend development server, cd to backend folder:
-
-Paste .env file into backend folder then run
-
-```bash
-npm i
-npm run build
-node dist/index.cjs
 ```
