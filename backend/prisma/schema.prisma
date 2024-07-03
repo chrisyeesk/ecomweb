@@ -44,6 +44,15 @@ model User {
   @@index([email])
 }
 
+model Enquiry {
+  id        Int      @id
+  name      String
+  email     String
+  orderId   String
+  message   String
+  createdAt DateTime @default(now())
+}
+
 model Address {
   id       Int    @id @default(autoincrement())
   user     User   @relation(fields: [userId], references: [id])
