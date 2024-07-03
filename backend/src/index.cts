@@ -16,7 +16,15 @@ app.use((req, res, next) => {
 
 app.use("/enquiry", enquiryRouter);
 
-app.get("/test", async (req, res) => {
+app.get("/testsw', async (req, res) => {
+  try {
+    res.status(200).json({ message: 'API working!' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+app.get('/bigbig", async (req, res) => {
   try {
     res.status(200).json({ message: "API working!" });
   } catch (error) {
