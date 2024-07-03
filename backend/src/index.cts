@@ -1,6 +1,6 @@
 const express = require("express");
 const { PrismaClient } = require("@prisma/client");
-const enquiryRouter = require("./controller/enquiry");
+const enquiryRouter = require("./controller/equiry.cjs");
 
 const prisma = new PrismaClient();
 const app = express();
@@ -16,7 +16,7 @@ app.use((req, res, next) => {
 
 app.use("/enquiry", enquiryRouter);
 
-app.get("/testsw', async (req, res) => {
+app.get("/testsw", async (req, res) => {
   try {
     res.status(200).json({ message: 'API working!' });
   } catch (error) {
@@ -24,7 +24,7 @@ app.get("/testsw', async (req, res) => {
   }
 });
 
-app.get('/bigbig", async (req, res) => {
+app.get("/bigbig", async (req, res) => {
   try {
     res.status(200).json({ message: "API working!" });
   } catch (error) {

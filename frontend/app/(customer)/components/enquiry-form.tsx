@@ -1,9 +1,33 @@
+"use client";
 import { Button } from "@/components/ui/button";
 
+interface FormData {
+  name: string;
+  email: string;
+  order_id: string;
+  message: string;
+}
+
 export default function EnquiryForm() {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    const values: FormData = {
+      name: formData.get("name") as string,
+      email: formData.get("email") as string,
+      order_id: formData.get("order_id") as string,
+      message: formData.get("message") as string,
+    };
+
+    console.log("Form values:", values);
+  };
+
   return (
     <>
-      <form className="space-y-4">
+      <form className="space-y-4" onSubmit={handleSubmit}>
         <div>
           <label className="block mb-1 font-medium" htmlFor="name">
             Name
@@ -37,7 +61,6 @@ export default function EnquiryForm() {
             id="order_id"
             name="order_id"
             className="w-full p-2 border border-gray-300 rounded"
-            required
           />
         </div>
         <div>
