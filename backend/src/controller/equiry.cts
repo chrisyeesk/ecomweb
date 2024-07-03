@@ -1,7 +1,7 @@
-const enquiryRouter = require("express").Router();
-const prisma = require("../prisma")
+const enquiryRouter = require('express').Router();
+const prisma = require('../prisma');
 
-enquiryRouter.post("/", async (req, res) => {
+enquiryRouter.post('/', async (req, res) => {
   try {
     const { name, email, orderId, message } = req.body;
 
@@ -9,7 +9,7 @@ enquiryRouter.post("/", async (req, res) => {
     if (!name || !email || !message) {
       return res
         .status(400)
-        .json({ error: "Name, email, and message are required" });
+        .json({ error: 'Name, email, and message are required' });
     }
 
     // insert into database
@@ -17,7 +17,7 @@ enquiryRouter.post("/", async (req, res) => {
       data: {
         name,
         email,
-        orderId: orderId || "",
+        orderId: orderId || '',
         message,
       },
     });
@@ -25,7 +25,7 @@ enquiryRouter.post("/", async (req, res) => {
     res.status(201).json(savedEnquiry);
   } catch (err) {
     console.log(err);
-    res.status(500).json({ error: "An error occured" });
+    res.status(500).json({ error: 'An error occured' });
   }
 });
 
