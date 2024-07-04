@@ -5,9 +5,9 @@ export default function CustomerSupport() {
   return (
     <>
       <main className="pt-16 mx-auto w-[100vw] xl:w-[1500px]">
-        <div className="max-w-5xl mx-auto my-10 p-10 border border-gray-300 shadow-lg flex">
-          {/* Left Section */}
-          <div className="w-1/3 pr-8">
+        <div className="max-w-5xl mx-auto my-10 p-10 border border-gray-300 shadow-lg flex flex-col lg:flex-row">
+          {/* Top Section (on mobile) / Left Section (on desktop) */}
+          <div className="w-full lg:w-1/3 lg:pr-8 mb-6 lg:mb-0">
             <h2 className="text-4xl font-bold mb-6">Contact.</h2>
             <div className="space-y-4">
               <p className="flex items-center">
@@ -51,8 +51,8 @@ export default function CustomerSupport() {
             </div>
           </div>
 
-          {/* Right Section */}
-          <div className="w-2/3">
+          {/* Bottom Section (on mobile) / Right Section (on desktop) */}
+          <div className="w-full lg:w-2/3">
             <EnquiryForm />
           </div>
         </div>
