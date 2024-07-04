@@ -1,7 +1,8 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import Notification from "../components/notification";
 import { submitEnquiry } from "@/app/api/Enquiry.Actions";
-import { use, useState } from "react";
+import { useState } from "react";
 
 interface FormData {
   name: string;
@@ -12,6 +13,8 @@ interface FormData {
 
 export default function EnquiryForm() {
   const [visibility, setVisibility] = useState(true);
+  const [message, setMessage] = useState("");
+  const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -27,9 +30,16 @@ export default function EnquiryForm() {
     };
 
     const response = await submitEnquiry(values);
+    setVisibility(false);
 
     if (response) {
-      setVisibility(false);
+      setMessage("Your enquiry has been received.");
+      setSuccess(true);
+    } else {
+      setMessage(
+        "There was an error when submitting your enquiry, please try again or call us at + (123) 456-7890."
+      );
+      setSuccess(false);
     }
 
     console.log(response);
@@ -37,6 +47,7 @@ export default function EnquiryForm() {
 
   return (
     <>
+      {!visibility && <Notification message={message} success={success} />}
       {visibility && (
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
