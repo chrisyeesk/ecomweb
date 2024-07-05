@@ -7,7 +7,7 @@ export default function ShopNowButton() {
   const router = useRouter();
 
   const handleClickShopNow = () => {
-    console.log('Shop Now', router)
+    console.log('Shop Now', router);
     router.push('/products');
   };
 

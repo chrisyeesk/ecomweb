@@ -19,7 +19,15 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     next();
 });
-app.get('/test', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+app.get('/testsd', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        res.status(200).json({ message: 'API working!' });
+    }
+    catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}));
+app.get('/bigbig', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         res.status(200).json({ message: 'API working!' });
     }
@@ -81,6 +89,16 @@ app.put('/users/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* 
             },
         });
         res.status(200).json(user);
+    }
+    catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}));
+//get all products
+app.get('/products', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const products = yield prisma.Product.findMany();
+        res.status(200).json({ message: products });
     }
     catch (error) {
         res.status(500).json({ message: error.message });
