@@ -1,17 +1,22 @@
-const express = require('express');
-const { PrismaClient } = require('@prisma/client');
+const express = require("express");
+const { PrismaClient } = require("@prisma/client");
+const enquiryRouter = require("./controller/equiry.cjs");
 
 const prisma = new PrismaClient();
 const app = express();
 
+app.use(express.json());
+
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   next();
 });
 
-app.get('/testsw', async (req, res) => {
+app.use("/enquiry", enquiryRouter);
+
+app.get("/testsw", async (req, res) => {
   try {
     res.status(200).json({ message: 'API working!' });
   } catch (error) {
@@ -19,16 +24,16 @@ app.get('/testsw', async (req, res) => {
   }
 });
 
-app.get('/bigbig', async (req, res) => {
+app.get("/bigbig", async (req, res) => {
   try {
-    res.status(200).json({ message: 'API working!' });
+    res.status(200).json({ message: "API working!" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
 
 //get all users
-app.get('/users', async (req, res) => {
+app.get("/users", async (req, res) => {
   try {
     const users = await prisma.user.findMany();
     res.status(200).json(users);
@@ -38,7 +43,7 @@ app.get('/users', async (req, res) => {
 });
 
 //get user by id
-app.get('/users/:id', async (req, res) => {
+app.get("/users/:id", async (req, res) => {
   try {
     const user = await prisma.user.findUnique({
       where: {
@@ -52,7 +57,7 @@ app.get('/users/:id', async (req, res) => {
 });
 
 //create user
-app.post('/users', async (req, res) => {
+app.post("/users", async (req, res) => {
   try {
     const user = await prisma.user.create({
       name: req.body.name,
@@ -67,7 +72,7 @@ app.post('/users', async (req, res) => {
 });
 
 //update user
-app.put('/users/:id', async (req, res) => {
+app.put("/users/:id", async (req, res) => {
   try {
     const user = await prisma.user.update({
       where: {
@@ -87,7 +92,7 @@ app.put('/users/:id', async (req, res) => {
 });
 
 //get all products
-app.get('/products', async (req, res) => {
+app.get("/products", async (req, res) => {
   try {
     const products = await prisma.Product.findMany();
     res.status(200).json({ message: products });

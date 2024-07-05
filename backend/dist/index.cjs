@@ -9,17 +9,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express = require('express');
-const { PrismaClient } = require('@prisma/client');
+const express = require("express");
+const { PrismaClient } = require("@prisma/client");
+const enquiryRouter = require("./controller/equiry.cjs");
 const prisma = new PrismaClient();
 const app = express();
+app.use(express.json());
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
     next();
 });
-app.get('/testsd', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+app.use("/enquiry", enquiryRouter);
+app.get("/testsw", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         res.status(200).json({ message: 'API working!' });
     }
@@ -27,16 +30,16 @@ app.get('/testsd', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.status(500).json({ message: error.message });
     }
 }));
-app.get('/bigbig', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+app.get("/bigbig", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.status(200).json({ message: 'API working!' });
+        res.status(200).json({ message: "API working!" });
     }
     catch (error) {
         res.status(500).json({ message: error.message });
     }
 }));
 //get all users
-app.get('/users', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+app.get("/users", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const users = yield prisma.user.findMany();
         res.status(200).json(users);
@@ -46,7 +49,7 @@ app.get('/users', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 }));
 //get user by id
-app.get('/users/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+app.get("/users/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user = yield prisma.user.findUnique({
             where: {
@@ -60,7 +63,7 @@ app.get('/users/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 }));
 //create user
-app.post('/users', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+app.post("/users", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user = yield prisma.user.create({
             name: req.body.name,
@@ -75,7 +78,7 @@ app.post('/users', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 }));
 //update user
-app.put('/users/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+app.put("/users/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user = yield prisma.user.update({
             where: {
@@ -95,7 +98,7 @@ app.put('/users/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 }));
 //get all products
-app.get('/products', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+app.get("/products", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const products = yield prisma.Product.findMany();
         res.status(200).json({ message: products });
