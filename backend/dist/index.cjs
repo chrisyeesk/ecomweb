@@ -35,25 +35,6 @@ app.get('/products', (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
 }));
 app.use('/enquiry', enquiryRouter);
-app.get('/testsw', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        res.status(200).json({ message: 'API working!' });
-    }
-    catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-}));
-app.get('/bigbig', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const products = yield stripe.products.list({
-            limit: 3,
-        });
-        res.status(200).json({ message: 'whowwwz!' });
-    }
-    catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-}));
 //get all users
 app.get('/users', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {

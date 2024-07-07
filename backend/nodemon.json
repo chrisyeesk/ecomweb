@@ -1,6 +1,0 @@
-{
-    "watch": ["src", "package.json"],
-    "ext": "cts,ts,json",
-    "ignore": ["node_modules"],
-    "exec": "ts-node dist/index.cjs"
-}

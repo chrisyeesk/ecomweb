@@ -30,25 +30,6 @@ app.get('/products', async (req, res) => {
 
 app.use('/enquiry', enquiryRouter);
 
-app.get('/testsw', async (req, res) => {
-  try {
-    res.status(200).json({ message: 'API working!' });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
-app.get('/bigbig', async (req, res) => {
-  try {
-    const products = await stripe.products.list({
-      limit: 3,
-    });
-    res.status(200).json({ message: 'whowwwz!' });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
 //get all users
 app.get('/users', async (req, res) => {
   try {

@@ -6,8 +6,6 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 
 export default function ProductPage() {
-  console.log('hahaha');
-  //get params from url
   const { productId } = useParams();
   console.log('productId', productId);
   const product = products.find(
