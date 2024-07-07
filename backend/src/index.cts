@@ -1,11 +1,17 @@
 const express = require('express');
 const { PrismaClient } = require('@prisma/client');
+<<<<<<< HEAD
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+=======
+const enquiryRouter = require('./controller/equiry.cts');
+>>>>>>> origin/chris/product-listing-and-description
 
 const prisma = new PrismaClient();
 const app = express();
 const SECRET_KEY = 'roro12138';  // 更换为你的实际密钥
+
+app.use(express.json());
 
 app.use(express.json());
 
@@ -16,6 +22,7 @@ app.use((req, res, next) => {
   next();
 });
 
+<<<<<<< HEAD
 // Admin signup
 app.post('/admin/signup', async (req, res) => {
   console.log("Route /admin/signup called");
@@ -28,10 +35,19 @@ app.post('/admin/signup', async (req, res) => {
     res.status(201).json(admin);
   } catch (error) {
     console.error(error);
+=======
+app.use('/enquiry', enquiryRouter);
+
+app.get('/testsw', async (req, res) => {
+  try {
+    res.status(200).json({ message: 'API working!' });
+  } catch (error) {
+>>>>>>> origin/chris/product-listing-and-description
     res.status(500).json({ message: error.message });
   }
 });
 
+<<<<<<< HEAD
 // Admin signin
 app.post('/admin/signin', async (req, res) => {
   console.log("Route /admin/signin called");
@@ -78,6 +94,9 @@ app.get('/admin/me', authenticate, (req, res) => {
 
 app.get('/test', async (req, res) => {
   console.log("Route /test called");
+=======
+app.get('/bigbig', async (req, res) => {
+>>>>>>> origin/chris/product-listing-and-description
   try {
     res.status(200).json({ message: 'API working!' });
   } catch (error) {
@@ -150,6 +169,7 @@ app.put('/users/:id', async (req, res) => {
 app.get('/products', async (req, res) => {
   try {
     const products = await prisma.Product.findMany();
+    console.log('productsss', products);
     res.status(200).json({ message: products });
   } catch (error) {
     res.status(500).json({ message: error.message });
