@@ -14,7 +14,9 @@
   "description": "",
   "dependencies": {
     "@prisma/client": "^5.16.1",
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.0"
   },
   "devDependencies": {
     "@types/node": "^20.14.9",

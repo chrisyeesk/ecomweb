@@ -1,19 +1,33 @@
 const express = require('express');
 const { PrismaClient } = require('@prisma/client');
-<<<<<<< HEAD
+const enquiryRouter = require('./controller/equiry.cts');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-=======
-const enquiryRouter = require('./controller/equiry.cts');
->>>>>>> origin/chris/product-listing-and-description
+
+
 
 const prisma = new PrismaClient();
 const app = express();
-const SECRET_KEY = 'roro12138';  // 更换为你的实际密钥
 
 app.use(express.json());
 
-app.use(express.json());
+const JWT_SECRET = process.env.JWT_SECRET;  // 使用环境变量或默认密钥
+
+// 中间件：验证JWT
+const authenticateJWT = (req, res, next) => {
+  const token = req.header('Authorization')?.split(' ')[1];
+  if (!token) {
+    return res.status(401).json({ message: 'Access Denied' });
+  }
+
+  try {
+    const verified = jwt.verify(token, JWT_SECRET);
+    req.user = verified;
+    next();
+  } catch (error) {
+    res.status(400).json({ message: 'Invalid Token' });
+  }
+};
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -22,81 +36,17 @@ app.use((req, res, next) => {
   next();
 });
 
-<<<<<<< HEAD
-// Admin signup
-app.post('/admin/signup', async (req, res) => {
-  console.log("Route /admin/signup called");
-  const { username, password } = req.body;
-  try {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const admin = await prisma.admin.create({
-      data: { username, password: hashedPassword }
-    });
-    res.status(201).json(admin);
-  } catch (error) {
-    console.error(error);
-=======
 app.use('/enquiry', enquiryRouter);
 
 app.get('/testsw', async (req, res) => {
   try {
     res.status(200).json({ message: 'API working!' });
   } catch (error) {
->>>>>>> origin/chris/product-listing-and-description
     res.status(500).json({ message: error.message });
   }
 });
 
-<<<<<<< HEAD
-// Admin signin
-app.post('/admin/signin', async (req, res) => {
-  console.log("Route /admin/signin called");
-  const { username, password } = req.body;
-  try {
-    const admin = await prisma.admin.findUnique({ where: { username } });
-    if (!admin) {
-      return res.status(401).json({ message: 'Invalid username or password' });
-    }
-    const isValid = await bcrypt.compare(password, admin.password);
-    if (!isValid) {
-      return res.status(401).json({ message: 'Invalid username or password' });
-    }
-    const token = jwt.sign({ adminId: admin.id }, SECRET_KEY, { expiresIn: '1h' });
-    res.status(200).json({ token });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: error.message });
-  }
-});
-
-// Middleware to protect routes
-const authenticate = (req, res, next) => {
-  const authHeader = req.headers.authorization;
-  if (!authHeader) {
-    return res.status(401).json({ message: 'No token provided' });
-  }
-  const token = authHeader.split(' ')[1];
-  try {
-    const decoded = jwt.verify(token, SECRET_KEY);
-    req.adminId = decoded.adminId;
-    next();
-  } catch (error) {
-    res.status(401).json({ message: 'Invalid token' });
-  }
-};
-
-// Protected route example
-app.get('/admin/me', authenticate, (req, res) => {
-  console.log("Route /admin/me called");
-  res.status(200).json({ message: 'You are authenticated', adminId: req.adminId });
-});
-
-
-app.get('/test', async (req, res) => {
-  console.log("Route /test called");
-=======
 app.get('/bigbig', async (req, res) => {
->>>>>>> origin/chris/product-listing-and-description
   try {
     res.status(200).json({ message: 'API working!' });
   } catch (error) {
@@ -104,9 +54,52 @@ app.get('/bigbig', async (req, res) => {
   }
 });
 
+// 管理员注册
+app.post('/admin/signup', async (req, res) => {
+  const { email, password } = req.body;
+
+  // Hash密码
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+
+  try {
+    const admin = await prisma.admin.create({
+      data: {
+        email,
+        password: hashedPassword,
+      },
+    });
+    res.json(admin);
+  } catch (error) {
+    res.status(400).json({ message: 'Error creating admin', error });
+  }
+});
+
+// 管理员登录
+app.post('/admin/signin', async (req, res) => {
+  const { email, password } = req.body;
+
+  const admin = await prisma.admin.findUnique({ where: { email } });
+  if (!admin) return res.status(400).json({ message: 'Email not found' });
+
+  const validPassword = await bcrypt.compare(password, admin.password);
+  if (!validPassword) return res.status(400).json({ message: 'Invalid password' });
+
+  const token = jwt.sign({ id: admin.id }, JWT_SECRET, {
+    expiresIn: '1h',
+  });
+
+  res.header('Authorization', `Bearer ${token}`).json({ message: 'Logged in successfully', token });
+});
+
+// 管理员登出
+app.post('/admin/signout', authenticateJWT, (req, res) => {
+  res.header('Authorization', '').json({ message: 'Logged out successfully' });
+});
+
+
 //get all users
 app.get('/users', async (req, res) => {
-  console.log("Route /users called");
   try {
     const users = await prisma.user.findMany();
     res.status(200).json(users);
@@ -117,7 +110,6 @@ app.get('/users', async (req, res) => {
 
 //get user by id
 app.get('/users/:id', async (req, res) => {
-  console.log("Route /users/:id called");
   try {
     const user = await prisma.user.findUnique({
       where: {
