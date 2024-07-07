@@ -20,4 +20,10 @@ COPY . .
 EXPOSE 8000
 
 # Use CMD instead of ENTRYPOINT for more flexibility
-CMD ["npm", "run", "dev"]
+# Install nodemon globally
+RUN npm install -g nodemon
+
+RUN npm install typescript -g
+
+# Command to run the application with nodemon
+CMD ["nodemon", "--watch", ".", "--exec", "ts-node", "dist/index.cjs"]

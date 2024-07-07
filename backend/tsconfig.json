@@ -1,11 +1,15 @@
 {
-    "compilerOptions": {
-        "target": "es6",
-        "module": "NodeNext",
-        "moduleResolution": "NodeNext",
-        "sourceMap": false,
-        "outDir": "dist",
-    },
-    "include": [
-        "src/**/*.ts", "src/**/*.cts", "src/index.cts"]
+  "compilerOptions": {
+    "target": "es6",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "sourceMap": false,
+    "outDir": "dist",
+    "baseUrl": "./",
+    "paths": {
+      "*": ["src/*"],
+      "*.cts": ["src/*.ts"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.cts", "src/index.cts"]
 }

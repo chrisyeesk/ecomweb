@@ -6,7 +6,7 @@
   "scripts": {
     "build": "rimraf ./dist && tsc",
     "start": "npm run build && node dist/index.cjs",
-    "dev": "ts-node-dev --poll --project tsconfig.json src/index.cts"
+    "dev": "nodemon dist/index.cjs --exec 'node --inspect=0.0.0.0:9229'"
   },
   "keywords": [],
   "author": "",
@@ -14,7 +14,10 @@
   "description": "",
   "dependencies": {
     "@prisma/client": "^5.16.1",
-    "express": "^4.19.2"
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "passport": "^0.7.0",
+    "stripe": "^16.2.0"
   },
   "devDependencies": {
     "@types/node": "^20.14.9",
