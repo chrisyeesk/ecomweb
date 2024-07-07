@@ -1,5 +1,5 @@
 const enquiryRouter = require('express').Router();
-const prisma = require('../prisma.cjs');
+const prisma = require('../prisma.cts');
 
 enquiryRouter.post('/', async (req, res) => {
   try {
