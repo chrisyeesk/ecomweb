@@ -19,5 +19,15 @@ COPY . .
 
 EXPOSE 8000
 
-# Use CMD instead of ENTRYPOINT for more flexibility
-CMD ["npm", "run", "dev"]
+# Install typescript globally to use the tsc command to automatically convert typescript files to javascript files
+RUN npm install typescript -g
+
+# rimraf deletes all the unused converted .js and .cjs files
+RUN npm install -g rimraf
+RUN rimraf ./dist && tsc
+
+# nodemon updates the server on file changes
+RUN npm install -g nodemon
+
+# Command to run the application with nodemon
+CMD ["npm", "run", "start"]

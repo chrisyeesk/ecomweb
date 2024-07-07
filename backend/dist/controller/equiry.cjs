@@ -11,9 +11,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const enquiryRouter = require('express').Router();
 const prisma = require('../prisma.cjs');
-enquiryRouter.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.status(200).json({ message: "working" });
-}));
 enquiryRouter.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { name, email, orderId, message } = req.body;
