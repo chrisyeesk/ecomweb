@@ -2,8 +2,12 @@ This is an E-commerce website created by Chris Yee Shen Koay, Luchen Zhou, Yao X
 
 Contribution:
 Chris Yee Shen Koay
-- Main page
-- Set up backend and PostgreSQL dockerfile
+- Set up Website landing page
+- Configure Docker to rebuild container when there are code changes and when new module is installed
+- Set up backend and developement PostgreSQL database dockerfile
+- Set Up payment Page with Stripe
+- Product Listing Page
+- Deployment to ECR
 
 Luchen Zhou
 -
@@ -40,12 +44,3 @@ To run email templates, run
 npx react-email dev
 ```
 
-## Getting Started (Production)
-
-```bash
-docker compose -f compose.yaml build
-```
-
-```bash
-docker compose -f compose.yaml up
-```

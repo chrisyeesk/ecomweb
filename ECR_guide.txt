@@ -1,0 +1,53 @@
+## Getting Started (Production)
+
+```bash
+docker compose -f compose.yaml build
+```
+
+```bash
+docker compose -f compose.yaml up
+```
+
+## Build Image and Push to ECR
+
+At frontend folder, run
+```bash
+docker build -t ecomweb-frontend .
+```
+
+At backend folder, run
+```bash
+docker build -t ecomweb-backend .
+```
+
+Check Images created using
+```bash
+docker images
+```
+
+Make sure frontend container running by running command, get image name using 'docker images' command
+```bash
+docker run -p 3000:3000 yourimageid
+```
+
+Make sure backend container running by running command, get image name using 'docker images' command
+```bash
+docker run -p 8000:8000 yourimageid
+```
+
+Create ECR repo
+```bash
+aws ecr create-repository --repository-name ecomweb-frontend
+```
+```bash
+aws ecr create-repository --repository-name ecomweb-backend
+```
+
+Login to ECR using get push commands in your AWS ECR Repo, run them sequentially
+
+## Deployment to ECS
+```bash
+aws ecs create-cluster --cluster-name ecomweb
+```
+
+Create Task Definition through AWS console
