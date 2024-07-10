@@ -39,3 +39,4 @@ frontend/next-env.d.ts
 
 #BACKEND
 backend/.env
+frontend/.env
