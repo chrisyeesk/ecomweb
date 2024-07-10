@@ -4,8 +4,11 @@ import React, { useState } from 'react';
 import { ChevronDown, CircleUserRound, Menu, ShoppingBag } from 'lucide-react';
 import SearchProduct from './search-product';
 import SideBar from './side-bar';
+import { useUser } from '@auth0/nextjs-auth0/client';
+import Link from 'next/link';
 
 export default function MenuBar() {
+  const {user, error, isLoading} = useUser();
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
   const handleClickOpen = () => {
     {
@@ -33,7 +36,15 @@ export default function MenuBar() {
       <section className="flex items-center mr-4 space-x-4">
         <SearchProduct className="hidden sm:flex" />
         <ShoppingBag className="w-10" />
-        <CircleUserRound />
+        {
+          user
+          ? <Link href="/profile">
+              <CircleUserRound />
+            </Link>
+          :  <Link href="/api/auth/login">
+              <CircleUserRound />
+            </Link>
+        }
       </section>
       {isSideBarOpen && <SideBar setIsSideBarOpen={setIsSideBarOpen}/>}
     </div>
